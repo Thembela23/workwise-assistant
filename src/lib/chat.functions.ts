@@ -66,7 +66,7 @@ export const getThreadMessages = createServerFn({ method: "GET" })
     if (error) throw new Error(error.message);
     return (rows ?? []).map((r) => ({
       id: r.id as string,
-      role: r.role as "user" | "assistant" | "system",
-      parts: r.parts as unknown as Array<Record<string, unknown>>,
+      role: r.role as string,
+      parts: JSON.stringify(r.parts),
     }));
   });
