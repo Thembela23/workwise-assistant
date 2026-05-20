@@ -84,14 +84,14 @@ function ChatWindow({ threadId }: { threadId: string }) {
     inputRef.current?.focus();
   }, [threadId, status]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const fd = new FormData(form);
-    const text = String(fd.get("message") ?? "").trim();
+  const handleSubmit = (
+    message: { text?: string; files?: unknown[] },
+    e: React.FormEvent<HTMLFormElement>,
+  ) => {
+    const text = (message.text ?? "").trim();
     if (!text) return;
     sendMessage({ text });
-    form.reset();
+    e.currentTarget.reset();
     requestAnimationFrame(() => inputRef.current?.focus());
   };
 
